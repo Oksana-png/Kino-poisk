@@ -80,12 +80,15 @@ function showFullInfo(){
       for (let genre of output.genres){
         genr += genre.name + ' ';      
       }
+      console.log(output);
+      const poster = output.poster_path ? (urlPoster + output.poster_path) : 'nofoto.jpg';
+
       let mediaType = output.title ? 'movie' : 'tv';
       
       movie.innerHTML = `
         <h4 class="col-12 text-center text-info">${output.title || output.name}</h4>
         <div class="col-4">
-          <img src="${urlPoster + output.poster_path}" alt="${output.name || output.title}">
+          <img src="${poster}" alt="${output.name || output.title}">
           ${(output.homepage) ? `<p class="text-center"><a href="${output.homepage}" target="_blank">Официальная страница</a></p>` : ''}
           ${(output.imdb_id) ? `<p class="text-center"><a href="https://imdb.com/title/${output.imdb_id}" target="_blank">Страница на IMDB.com</a></p>` : ''}
           </div> 
@@ -160,7 +163,6 @@ function getVideo(type, id){
       return value.json();
     })
     .then((output) => {
-      console.log(output);
       let videoFrame = '<h5 class="col-12 text-info">Трейлеры</h5>';
 
       if(output.results.length === 0){
